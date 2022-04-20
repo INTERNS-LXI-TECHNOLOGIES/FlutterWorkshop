@@ -4,6 +4,7 @@ import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+//java -jar "D:\flutter project\FlutterWorkshop\pet_store\pet_store\openapi"\openapi-generator-cli-5.4.0.jar generate --skip-validate-spec -i .\api-docs.json -g dart-dio -o .\"D:\flutter project\FlutterWorkshop\pet_store\pet_store\openapi"
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
