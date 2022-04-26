@@ -1,10 +1,16 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'dart:html';
+import 'dart:js';
 
+import 'package:dio/src/response.dart';
+import 'package:built_collection/src/list.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-//java -jar "D:\flutter project\FlutterWorkshop\pet_store\pet_store\openapi"\openapi-generator-cli-5.4.0.jar generate --skip-validate-spec -i .\api-docs.json -g dart-dio -o .\"D:\flutter project\FlutterWorkshop\pet_store\pet_store\openapi"
+import 'package:openapi/openapi.dart';
+import 'package:pet_store/model/pets.dart';
+import 'package:pet_store/widgets/bottombar_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -41,28 +47,44 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Card(
-                  color: Colors.lightBlue,
-                  child: Icon(Icons.headphones),
-                ),
-                Card(
-                  color: Color.fromARGB(255, 14, 53, 71),
-                ),
-                Card(
-                  color: Color.fromARGB(255, 65, 147, 185),
-                ),
+                // _sampleMethod(),
               ],
             ),
           ),
-          Container(
-            color: Color.fromARGB(255, 42, 107, 182),
-            width: MediaQuery.of(context).size.width,
-            height: 300, //MediaQuery.of(context).size.height / 3,
-          ),
+          // Container(
+          //   color: Color.fromARGB(255, 42, 107, 182),
+          //   width: MediaQuery.of(context).size.width,
+          //   height: 300, //MediaQuery.of(context).size.height / 3,
+          //   // child: _petList(),
+          // ),
         ],
       ),
+      bottomNavigationBar: BottombarWidgets(),
     );
   }
+
+  // Widget _petList() {
+  //   List<String> sampleList = [
+  //     'a',
+  //     'b',
+  //     'c',
+  //     'd',
+  //     'e',
+  //     'f',
+  //     'g',
+  //     'h',
+  //     'i',
+  //     'j'
+  //   ];
+
+  //   return ListView.builder(
+  //     scrollDirection: Axis.horizontal,
+  //     itemCount: 10,
+  //     itemBuilder: (context, i) => ListTile(
+  //       title: Text('abc'),
+  //     ),
+  //   );
+  // }
 
   //sizedbox for textfield
   SizedBox searchBox(BuildContext context) {
@@ -81,5 +103,19 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  //Future<Response<BuiltList<Pet>>>
+  _sampleMethod() async {
+    var pet = 'abs';
+
+    // Response<BuiltList<Pet>>petList= await Openapi().getPetApi().findPetsByStatus(status:);
+    Response<Pet> petDetails =
+        await Openapi().getPetApi().getPetById(petId: 7600);
+    String petName = petDetails.data!.name;
+    // debugPrintThrottled('$petList');
+    debugPrintThrottled('$petDetails');
+    debugPrintThrottled('pet name=$petName');
+    // return petList;
   }
 }
