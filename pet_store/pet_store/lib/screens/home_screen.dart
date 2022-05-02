@@ -1,16 +1,12 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-import 'dart:html';
-import 'dart:js';
+// ignore_for_file: prefer_const_constructors
 
 import 'package:dio/src/response.dart';
-import 'package:built_collection/src/list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:openapi/openapi.dart';
-import 'package:pet_store/model/pets.dart';
 import 'package:pet_store/widgets/bottombar_widget.dart';
+import 'package:pet_store/widgets/maincard_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -37,19 +33,22 @@ class HomeScreen extends StatelessWidget {
           searchBox(context),
           Container(
             color: Color.fromARGB(255, 21, 101, 167),
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery.of(context).size.width * 2,
             height: MediaQuery.of(context).size.height / 5,
+            child: MainCard(),
           ),
           SizedBox(
-            height: 150,
-            width: 150,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // _sampleMethod(),
-              ],
-            ),
+            height: 100,
+            width: 550,
+            //child: MainCard(),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: const [
+            //     // _sampleMethod(),
+            //     //MainCard(),
+            //   ],
+            // ),
           ),
           // Container(
           //   color: Color.fromARGB(255, 42, 107, 182),
@@ -106,16 +105,5 @@ class HomeScreen extends StatelessWidget {
   }
 
   //Future<Response<BuiltList<Pet>>>
-  _sampleMethod() async {
-    var pet = 'abs';
 
-    // Response<BuiltList<Pet>>petList= await Openapi().getPetApi().findPetsByStatus(status:);
-    Response<Pet> petDetails =
-        await Openapi().getPetApi().getPetById(petId: 7600);
-    String petName = petDetails.data!.name;
-    // debugPrintThrottled('$petList');
-    debugPrintThrottled('$petDetails');
-    debugPrintThrottled('pet name=$petName');
-    // return petList;
-  }
 }
