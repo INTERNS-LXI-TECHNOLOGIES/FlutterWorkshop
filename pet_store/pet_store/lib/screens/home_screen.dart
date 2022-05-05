@@ -2,9 +2,7 @@
 
 import 'package:dio/src/response.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:openapi/openapi.dart';
 import 'package:pet_store/widgets/bottombar_widget.dart';
 import 'package:pet_store/widgets/maincard_widget.dart';
 
@@ -28,62 +26,40 @@ class HomeScreen extends StatelessWidget {
           )
         ],
       ),
-      body: Column(
-        children: [
-          searchBox(context),
-          Container(
-            color: Color.fromARGB(255, 21, 101, 167),
-            width: MediaQuery.of(context).size.width * 2,
-            height: MediaQuery.of(context).size.height / 5,
-            child: MainCard(),
-          ),
-          SizedBox(
-            height: 100,
-            width: 550,
-            //child: MainCard(),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.start,
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   children: const [
-            //     // _sampleMethod(),
-            //     //MainCard(),
-            //   ],
-            // ),
-          ),
-          // Container(
-          //   color: Color.fromARGB(255, 42, 107, 182),
-          //   width: MediaQuery.of(context).size.width,
-          //   height: 300, //MediaQuery.of(context).size.height / 3,
-          //   // child: _petList(),
-          // ),
-        ],
-      ),
+      body: MainCard(),
+      // body: Column(
+      //   children: [
+      //     searchBox(context),
+      //     Container(
+      //       color: Color.fromARGB(255, 21, 101, 167),
+      //       width: MediaQuery.of(context).size.width * 2,
+      //       height: MediaQuery.of(context).size.height / 5,
+      //       child: MainCard(),
+      //     ),
+      //     SizedBox(
+      //       height: 100,
+      //       width: 550,
+      //       //child: MainCard(),
+      //       // Row(
+      //       //   mainAxisAlignment: MainAxisAlignment.start,
+      //       //   crossAxisAlignment: CrossAxisAlignment.start,
+      //       //   children: const [
+      //       //     // _sampleMethod(),
+      //       //     //MainCard(),
+      //       //   ],
+      //       // ),
+      //     ),
+      //     // Container(
+      //     //   color: Color.fromARGB(255, 42, 107, 182),
+      //     //   width: MediaQuery.of(context).size.width,
+      //     //   height: 300, //MediaQuery.of(context).size.height / 3,
+      //     //   // child: _petList(),
+      //     // ),
+      //   ],
+      // ),
       bottomNavigationBar: BottombarWidgets(),
     );
   }
-
-  // Widget _petList() {
-  //   List<String> sampleList = [
-  //     'a',
-  //     'b',
-  //     'c',
-  //     'd',
-  //     'e',
-  //     'f',
-  //     'g',
-  //     'h',
-  //     'i',
-  //     'j'
-  //   ];
-
-  //   return ListView.builder(
-  //     scrollDirection: Axis.horizontal,
-  //     itemCount: 10,
-  //     itemBuilder: (context, i) => ListTile(
-  //       title: Text('abc'),
-  //     ),
-  //   );
-  // }
 
   //sizedbox for textfield
   SizedBox searchBox(BuildContext context) {

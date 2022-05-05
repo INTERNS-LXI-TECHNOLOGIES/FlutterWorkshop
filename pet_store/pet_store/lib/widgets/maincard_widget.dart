@@ -1,36 +1,37 @@
-import 'package:dio/src/response.dart';
-import 'package:built_collection/src/list.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:openapi/openapi.dart';
 import 'package:pet_store/model/pets.dart';
 
 class MainCard extends StatelessWidget {
-  MainCard({Key? key}) : super(key: key);
-  var petList = Pets().petList();
+  const MainCard({Key? key}) : super(key: key);
+  // Future<Response<BuiltList<Pet>>> petList = Pets().petList();
+  // debugprint('petlist - $petList');
+
+  Future<Response<BuiltList<Pet>>> petsResponse() async {
+    Future<Response<BuiltList<Pet>>> _petList =
+        (await Pets().petList()) as Future<Response<BuiltList<Pet>>>;
+    return _petList;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 300,
-      height: 100,
-      child: FutureBuilder(
-        future: Pets().petList(),
-        builder: (context, AsyncSnapshot snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            return ListView.builder(
-              itemCount: 10, //snapshot,
+    return FutureBuilder(
+      future: petsResponse(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        } else {
+          return ListView.builder(
+              itemCount: 20,
+              shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemBuilder: (BuildContext context, int index) {
-                return Text('${snapshot.data[index].title}');
-              },
-            );
-          }
-        },
-      ),
+              itemBuilder: (BuildContext context, int index) => const ListTile(
+                    title: Text('122'),
+                  ));
+        }
+      },
     );
   }
 }

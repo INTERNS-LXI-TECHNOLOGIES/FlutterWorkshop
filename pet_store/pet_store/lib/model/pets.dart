@@ -4,19 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:openapi/openapi.dart';
 
 class Pets {
-  BuiltList<String> statusList = BuiltList(['available']);
+  final List<String> statusList = ["pending"];
+//static  BuiltList<String> statusList = BuiltList([Iterable<String> iterable = const ['"available", "sold"']]);
 
-  Future<Response<BuiltList<Pet>>>? petList() async {
+  Future<Response<BuiltList<Pet>>> petList() {
     Future<Response<BuiltList<Pet>>> _petList = Openapi()
         .getPetApi()
-        .findPetsByStatus(status: statusList.toBuiltList());
-    // debugPrint('$_petList');
-    // Openapi()
-    //     .getPetApi()
-    //     .findPetsByStatus(status: statusList.toBuiltList());
+        .findPetsByStatus(status: BuiltList<String>(statusList));
+    debugPrint('pets ; ${petList()}');
 
-    // Response<BuiltList<Pet>> listPet =
-    // await _petList; //(await _petList).data!.asList(); // as List<Pet>;
     return _petList;
   }
 }
