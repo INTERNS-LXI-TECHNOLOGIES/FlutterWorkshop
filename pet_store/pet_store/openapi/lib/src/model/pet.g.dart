@@ -6,10 +6,9 @@ part of 'pet.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-const PetStatusEnum _$petStatusEnum_available =
-    const PetStatusEnum._('available');
-const PetStatusEnum _$petStatusEnum_pending = const PetStatusEnum._('pending');
-const PetStatusEnum _$petStatusEnum_sold = const PetStatusEnum._('sold');
+PetStatusEnum _$petStatusEnum_available = PetStatusEnum._('available');
+PetStatusEnum _$petStatusEnum_pending = PetStatusEnum._('pending');
+PetStatusEnum _$petStatusEnum_sold = PetStatusEnum._('sold');
 
 PetStatusEnum _$petStatusEnumValueOf(String name) {
   switch (name) {
@@ -25,7 +24,7 @@ PetStatusEnum _$petStatusEnumValueOf(String name) {
 }
 
 final BuiltSet<PetStatusEnum> _$petStatusEnumValues =
-    new BuiltSet<PetStatusEnum>(const <PetStatusEnum>[
+    new BuiltSet<PetStatusEnum>(<PetStatusEnum>[
   _$petStatusEnum_available,
   _$petStatusEnum_pending,
   _$petStatusEnum_sold,

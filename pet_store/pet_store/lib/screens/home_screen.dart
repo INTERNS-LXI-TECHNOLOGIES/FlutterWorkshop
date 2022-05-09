@@ -3,30 +3,20 @@
 import 'package:dio/src/response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_store/screens/add_screen.dart';
+import 'package:pet_store/screens/mypet_screen.dart';
+import 'package:pet_store/screens/pets_screen.dart';
 import 'package:pet_store/widgets/bottombar_widget.dart';
 import 'package:pet_store/widgets/maincard_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
   TextEditingController searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.menu),
-        ),
-        title: Text('petstore'),
-        actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart)),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(CupertinoIcons.profile_circled),
-          )
-        ],
-      ),
-      body: MainCard(),
+      body: Text('petsss'),
       // body: Column(
       //   children: [
       //     searchBox(context),
@@ -57,7 +47,7 @@ class HomeScreen extends StatelessWidget {
       //     // ),
       //   ],
       // ),
-      bottomNavigationBar: BottombarWidgets(),
+      // bottomNavigationBar: BottombarWidgets(),
     );
   }
 

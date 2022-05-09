@@ -26,9 +26,8 @@ class BottombarWidgets extends StatelessWidget {
                 ),
                 BottomNavigationBarItem(icon: Icon(Icons.add), label: 'add'),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.my_library_add), label: 'my pet'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.notification_add), label: 'notifications')
+                    icon: Icon(Icons.monitor_heart_outlined), label: 'my pet'),
+                BottomNavigationBarItem(icon: Icon(Icons.list), label: 'pets')
               ]);
         });
   }

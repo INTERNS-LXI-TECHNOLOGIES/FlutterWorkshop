@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet_store/screens/home_screen.dart';
+import 'package:pet_store/screens/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(primaryColor: Colors.blue[700]),
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: MainScreen(),
     );
   }
 }
