@@ -1,61 +1,61 @@
-import 'package:built_collection/built_collection.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:openapi/openapi.dart';
-import 'package:pet_store/model/pets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pet_store/pet_list/pets_bloc.dart';
 
-class MainCard extends StatefulWidget {
+class MainCard extends StatelessWidget {
   MainCard({Key? key}) : super(key: key);
 
   @override
-  State<MainCard> createState() => _MainCardState();
-}
-
-class _MainCardState extends State<MainCard> {
-  // Future<Response<BuiltList<Pet>>> petsResponse() async {
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    petList();
-    super.initState();
-  }
-
-  final List<String> statusList = ["pending", "available"];
-
-  Future<Response<BuiltList<Pet>>> petList() {
-    Future<Response<BuiltList<Pet>>> _petList = Openapi()
-        .getPetApi()
-        .findPetsByStatus(status: BuiltList<String>(statusList));
-    _petList.then((value) => debugPrint('result : $value'));
-    return _petList;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: FutureBuilder(
-          future: petList(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const Center(child: CircularProgressIndicator());
-            } else {
-              return crateList(snapshot);
-            }
-          },
-        ),
-      ),
+    return Container(
+      child: _body(context),
     );
   }
 
-  ListView crateList(AsyncSnapshot<Object?> snapshot) {
-    return ListView.builder(
-        itemCount: 15,
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (BuildContext context, int index) => const ListTile(
-              title: Text('_'),
-            ));
+  _body(context) {
+    BlocProvider.of<PetsBloc>(context).add(ShowList());
+    return Column(
+      children: [
+        BlocBuilder<PetsBloc, PetsState>(
+          builder: ((context, state) {
+            List? petList = state.petList;
+            return Expanded(
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: petList!.length,
+                  itemBuilder: (context, index) => ListTile(
+                        title: petList[index],
+                      )),
+            );
+          }),
+        )
+      ],
+    );
   }
+
+  // Widget _list(List petList) {
+  //   return Expanded(
+  //     child: ListView.builder(
+  //         itemCount: petList.length,
+  //         itemBuilder: (_, index) => ListTile(
+  //               title: petList[index].,
+  //             )),
+  //   );
+  // }
+
+  //petCollection() async {
+  // List<String> statusList = ['available'];
+  // //List<Pet>
+  // final petList = [];
+  // await Openapi()
+  //     .getPetApi()
+  //     .findPetsByStatus(status: BuiltList(statusList))
+  //     .then((value) => {
+  //           //  debugPrint('pets are : $value'),
+  //           petList.addAll(value.data!.asList()),
+  //           debugPrint('pet list : $petList'),
+  //         });
+  // return petList;
+
+  // }
 }

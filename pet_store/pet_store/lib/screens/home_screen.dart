@@ -16,7 +16,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text('petsss'),
+      body: Column(
+        children: [Text('petsss'), searchBox(context)],
+      ),
       // body: Column(
       //   children: [
       //     searchBox(context),
