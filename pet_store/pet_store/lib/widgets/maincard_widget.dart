@@ -17,17 +17,33 @@ class MainCard extends StatelessWidget {
     return Column(
       children: [
         BlocBuilder<PetsBloc, PetsState>(
-          builder: ((context, state) {
-            List? petList = state.petList;
+          builder: (context, state) {
+            // debugPrint('bloc return list=>${petList}');
+            debugPrint('bloc return list length=>${state.petList.length}');
             return Expanded(
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: petList!.length,
-                  itemBuilder: (context, index) => ListTile(
-                        title: petList[index],
-                      )),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1),
+                shrinkWrap: true,
+                itemCount: state.petList.length,
+                itemBuilder: (context, i) => Image.network(
+                  state.petList[i].photoUrls[i].toString(),
+                  fit: BoxFit.cover,
+                ),
+                // ListTile(
+                //   title: Text('${state.petList[i].name}'),
+                //   leading: CircleAvatar(
+                //     child: Image.network(
+                //       '${state.petList[i].photoUrls}',
+                //     ),
+                //     //NetworkImage('${state.petList[i].photoUrls}')
+
+                //     //Text('${state.petList[i].photoUrls}'),
+                //   ),
+                // ),
+              ),
             );
-          }),
+          },
         )
       ],
     );
