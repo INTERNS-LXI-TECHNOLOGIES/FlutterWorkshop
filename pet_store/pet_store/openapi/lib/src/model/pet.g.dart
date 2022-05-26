@@ -68,7 +68,7 @@ class _$Pet extends Pet {
   @override
   final Category? category;
   @override
-  final String name;
+  final String? name;
   @override
   final BuiltList<String> photoUrls;
   @override

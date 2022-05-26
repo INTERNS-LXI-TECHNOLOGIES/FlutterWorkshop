@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_store/pet_list/pets_bloc.dart';
@@ -23,24 +25,11 @@ class MainCard extends StatelessWidget {
             return Expanded(
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1),
+                    crossAxisCount: 2),
                 shrinkWrap: true,
                 itemCount: state.petList.length,
-                itemBuilder: (context, i) => Image.network(
-                  state.petList[i].photoUrls[i].toString(),
-                  fit: BoxFit.cover,
-                ),
-                // ListTile(
-                //   title: Text('${state.petList[i].name}'),
-                //   leading: CircleAvatar(
-                //     child: Image.network(
-                //       '${state.petList[i].photoUrls}',
-                //     ),
-                //     //NetworkImage('${state.petList[i].photoUrls}')
-
-                //     //Text('${state.petList[i].photoUrls}'),
-                //   ),
-                // ),
+                itemBuilder: (context, i) =>
+                    getImagenBase64(state.petList[i].photoUrls[0]),
               ),
             );
           },
@@ -49,29 +38,23 @@ class MainCard extends StatelessWidget {
     );
   }
 
-  // Widget _list(List petList) {
-  //   return Expanded(
-  //     child: ListView.builder(
-  //         itemCount: petList.length,
-  //         itemBuilder: (_, index) => ListTile(
-  //               title: petList[index].,
-  //             )),
-  //   );
-  // }
-
-  //petCollection() async {
-  // List<String> statusList = ['available'];
-  // //List<Pet>
-  // final petList = [];
-  // await Openapi()
-  //     .getPetApi()
-  //     .findPetsByStatus(status: BuiltList(statusList))
-  //     .then((value) => {
-  //           //  debugPrint('pets are : $value'),
-  //           petList.addAll(value.data!.asList()),
-  //           debugPrint('pet list : $petList'),
-  //         });
-  // return petList;
-
-  // }
+  Widget getImagenBase64(String imagen) {
+    var _imageBase64 = imagen;
+    //const Base64Codec base64 = Base64Codec();
+    if (_imageBase64 == null) {
+      return const Center(child: CircularProgressIndicator());
+    } else if (_imageBase64.length % 4 > 0) {
+      _imageBase64 += '=' * (4 - _imageBase64.length % 4);
+      debugPrint(_imageBase64);
+      var bytes = const Base64Decoder().convert(_imageBase64);
+      debugPrint('$bytes');
+      return Image.memory(
+        bytes,
+        width: 20,
+        fit: BoxFit.fitWidth,
+      );
+    } else {
+      return const Center(child: CircularProgressIndicator());
+    }
+  }
 }
