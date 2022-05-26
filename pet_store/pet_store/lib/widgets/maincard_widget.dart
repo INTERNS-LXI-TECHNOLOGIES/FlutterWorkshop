@@ -54,7 +54,13 @@ class MainCard extends StatelessWidget {
         fit: BoxFit.fitWidth,
       );
     } else {
-      return const Center(child: CircularProgressIndicator());
+      var bytes = const Base64Decoder().convert(_imageBase64);
+      debugPrint('$bytes');
+      return Image.memory(
+        bytes,
+        width: 20,
+        fit: BoxFit.fitWidth,
+      );
     }
   }
 }
