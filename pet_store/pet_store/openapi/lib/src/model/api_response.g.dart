@@ -15,7 +15,7 @@ class _$ApiResponse extends ApiResponse {
   final String? message;
 
   factory _$ApiResponse([void Function(ApiResponseBuilder)? updates]) =>
-      (new ApiResponseBuilder()..update(updates)).build();
+      (new ApiResponseBuilder()..update(updates))._build();
 
   _$ApiResponse._({this.code, this.type, this.message}) : super._();
 
@@ -43,7 +43,7 @@ class _$ApiResponse extends ApiResponse {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ApiResponse')
+    return (newBuiltValueToStringHelper(r'ApiResponse')
           ..add('code', code)
           ..add('type', type)
           ..add('message', message))
@@ -93,7 +93,9 @@ class ApiResponseBuilder implements Builder<ApiResponse, ApiResponseBuilder> {
   }
 
   @override
-  _$ApiResponse build() {
+  ApiResponse build() => _build();
+
+  _$ApiResponse _build() {
     final _$result =
         _$v ?? new _$ApiResponse._(code: code, type: type, message: message);
     replace(_$result);
@@ -101,4 +103,4 @@ class ApiResponseBuilder implements Builder<ApiResponse, ApiResponseBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

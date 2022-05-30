@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_store/pet_list/pets_bloc.dart';
+import 'package:pet_store/screens/pet_details_screen.dart';
 
 class MainCard extends StatelessWidget {
   MainCard({Key? key}) : super(key: key);
@@ -23,14 +24,29 @@ class MainCard extends StatelessWidget {
             // debugPrint('bloc return list=>${petList}');
             debugPrint('bloc return list length=>${state.petList.length}');
             return Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
-                shrinkWrap: true,
-                itemCount: state.petList.length,
-                itemBuilder: (context, i) =>
-                    getImagenBase64(state.petList[i].photoUrls[0]),
-              ),
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: state.petList.length,
+                  itemBuilder: (context, i) => ListTile(
+                        title: Text('${state.petList[i].name}'),
+                        leading: CircleAvatar(
+                          child:
+                              getImagenBase64(state.petList[i].photoUrls.first),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  PetDetails(pet: state.petList[i]),
+                            ),
+                          );
+                        },
+                      )
+
+                  //getImagenBase64(state.petList[i].photoUrls.first),
+
+                  ),
             );
           },
         )
@@ -50,17 +66,19 @@ class MainCard extends StatelessWidget {
       debugPrint('$bytes');
       return Image.memory(
         bytes,
-        width: 20,
+        //width: 20,
         fit: BoxFit.fitWidth,
       );
-    } else {
+    } else if (_imageBase64.length > 100) {
       var bytes = const Base64Decoder().convert(_imageBase64);
       debugPrint('$bytes');
       return Image.memory(
         bytes,
-        width: 20,
+        //width: 20,
         fit: BoxFit.fitWidth,
       );
+    } else {
+      return const Image(image: AssetImage('images/cat.jpg'));
     }
   }
 }

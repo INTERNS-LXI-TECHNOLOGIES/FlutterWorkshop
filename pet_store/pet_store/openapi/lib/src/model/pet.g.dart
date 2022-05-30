@@ -6,9 +6,10 @@ part of 'pet.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-PetStatusEnum _$petStatusEnum_available = PetStatusEnum._('available');
-PetStatusEnum _$petStatusEnum_pending = PetStatusEnum._('pending');
-PetStatusEnum _$petStatusEnum_sold = PetStatusEnum._('sold');
+const PetStatusEnum _$petStatusEnum_available =
+    const PetStatusEnum._('available');
+const PetStatusEnum _$petStatusEnum_pending = const PetStatusEnum._('pending');
+const PetStatusEnum _$petStatusEnum_sold = const PetStatusEnum._('sold');
 
 PetStatusEnum _$petStatusEnumValueOf(String name) {
   switch (name) {
@@ -24,7 +25,7 @@ PetStatusEnum _$petStatusEnumValueOf(String name) {
 }
 
 final BuiltSet<PetStatusEnum> _$petStatusEnumValues =
-    new BuiltSet<PetStatusEnum>(<PetStatusEnum>[
+    new BuiltSet<PetStatusEnum>(const <PetStatusEnum>[
   _$petStatusEnum_available,
   _$petStatusEnum_pending,
   _$petStatusEnum_sold,
@@ -68,7 +69,7 @@ class _$Pet extends Pet {
   @override
   final Category? category;
   @override
-  final String? name;
+  final String name;
   @override
   final BuiltList<String> photoUrls;
   @override
@@ -77,7 +78,7 @@ class _$Pet extends Pet {
   final PetStatusEnum? status;
 
   factory _$Pet([void Function(PetBuilder)? updates]) =>
-      (new PetBuilder()..update(updates)).build();
+      (new PetBuilder()..update(updates))._build();
 
   _$Pet._(
       {this.id,
@@ -87,8 +88,8 @@ class _$Pet extends Pet {
       this.tags,
       this.status})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(name, 'Pet', 'name');
-    BuiltValueNullFieldError.checkNotNull(photoUrls, 'Pet', 'photoUrls');
+    BuiltValueNullFieldError.checkNotNull(name, r'Pet', 'name');
+    BuiltValueNullFieldError.checkNotNull(photoUrls, r'Pet', 'photoUrls');
   }
 
   @override
@@ -122,7 +123,7 @@ class _$Pet extends Pet {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('Pet')
+    return (newBuiltValueToStringHelper(r'Pet')
           ..add('id', id)
           ..add('category', category)
           ..add('name', name)
@@ -192,14 +193,16 @@ class PetBuilder implements Builder<Pet, PetBuilder> {
   }
 
   @override
-  _$Pet build() {
+  Pet build() => _build();
+
+  _$Pet _build() {
     _$Pet _$result;
     try {
       _$result = _$v ??
           new _$Pet._(
               id: id,
               category: _category?.build(),
-              name: BuiltValueNullFieldError.checkNotNull(name, 'Pet', 'name'),
+              name: BuiltValueNullFieldError.checkNotNull(name, r'Pet', 'name'),
               photoUrls: photoUrls.build(),
               tags: _tags?.build(),
               status: status);
@@ -215,7 +218,7 @@ class PetBuilder implements Builder<Pet, PetBuilder> {
         _tags?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'Pet', _$failedField, e.toString());
+            r'Pet', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -224,4 +227,4 @@ class PetBuilder implements Builder<Pet, PetBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
