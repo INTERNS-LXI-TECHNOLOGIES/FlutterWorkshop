@@ -9,18 +9,69 @@ class PetDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width / 2,
-            decoration: const BoxDecoration(
-              color: Colors.lightBlue,
-              borderRadius: BorderRadius.only(bottomRight: Radius.circular(20)),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 2,
+              decoration: const BoxDecoration(
+                color: Colors.lightBlue,
+                borderRadius:
+                    BorderRadius.only(bottomRight: Radius.circular(20)),
+              ),
+              child: Center(
+                  child: Text(
+                pet.name!,
+              )),
             ),
-            child: Text(pet.name),
-          )
-        ],
+            Container(
+              height: MediaQuery.of(context).size.height * .4,
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 253, 253, 253)),
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                      width: 200,
+                      height: 100,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            detailText(pet.name!, 30),
+                            detailText(pet.status!.name, 15),
+                          ])),
+                  SizedBox(
+                    width: 250,
+                    height: 100,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        detailText('more details', 25),
+                        detailText('Type : ${pet.category!.name}', 20),
+                        detailText('id   : ${pet.id}', 20),
+                        //detailText(pet.tags![0] as String, 20)
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
+    );
+  }
+
+  Text detailText(String value, double fSize) {
+    return Text(
+      value,
+      style: TextStyle(
+          color: Color.fromARGB(255, 3, 3, 3),
+          fontSize: fSize,
+          fontStyle: FontStyle.normal),
     );
   }
 }

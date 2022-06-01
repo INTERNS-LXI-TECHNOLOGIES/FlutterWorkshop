@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_store/pet_list/pets_bloc.dart';
@@ -23,15 +24,21 @@ class MainCard extends StatelessWidget {
           builder: (context, state) {
             // debugPrint('bloc return list=>${petList}');
             debugPrint('bloc return list length=>${state.petList.length}');
+
             return Expanded(
               child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: state.petList.length,
                   itemBuilder: (context, i) => ListTile(
-                        title: Text('${state.petList[i].name}'),
+                        title: state.petList[i].name!.isNotEmpty
+                            ? Text(state.petList[i].name!)
+                            : const Text('no name'),
                         leading: CircleAvatar(
                           child:
-                              getImagenBase64(state.petList[i].photoUrls.first),
+                              //Text(state.petList[i].status!.name)
+
+                              _getImagenBase64(
+                                  petPhotos(state.petList[i].photoUrls)[0]),
                         ),
                         onTap: () {
                           Navigator.push(
@@ -54,12 +61,18 @@ class MainCard extends StatelessWidget {
     );
   }
 
-  Widget getImagenBase64(String imagen) {
+  List<String> petPhotos(BuiltList<String> photos) {
+    List<String> photosUrl = [];
+    photosUrl.addAll(photos);
+    return photosUrl;
+  }
+
+  Widget _getImagenBase64(String imagen) {
     var _imageBase64 = imagen;
     //const Base64Codec base64 = Base64Codec();
     if (_imageBase64 == null) {
       return const Center(child: CircularProgressIndicator());
-    } else if (_imageBase64.length % 4 > 0) {
+    } else if (_imageBase64.length % 4 > 0 && _imageBase64.length > 100) {
       _imageBase64 += '=' * (4 - _imageBase64.length % 4);
       debugPrint(_imageBase64);
       var bytes = const Base64Decoder().convert(_imageBase64);

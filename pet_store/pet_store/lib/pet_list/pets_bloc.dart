@@ -11,7 +11,7 @@ part 'pets_state.dart';
 class PetsBloc extends Bloc<PetsEvent, PetsState> {
   PetsBloc() : super(PetsInitial(petList: [])) {
     on<ShowList>((event, emit) async {
-      List<String> statusList = ['available'];
+      List<String> statusList = ['available', 'pending'];
       List<Pet> petList = [];
       await Openapi()
           .getPetApi()

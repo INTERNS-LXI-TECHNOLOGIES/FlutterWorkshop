@@ -69,7 +69,7 @@ class _$Pet extends Pet {
   @override
   final Category? category;
   @override
-  final String name;
+  final String? name;
   @override
   final BuiltList<String> photoUrls;
   @override
@@ -83,7 +83,7 @@ class _$Pet extends Pet {
   _$Pet._(
       {this.id,
       this.category,
-      required this.name,
+      this.name,
       required this.photoUrls,
       this.tags,
       this.status})
