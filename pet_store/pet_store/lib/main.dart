@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pet_store/pet_list/pets_bloc.dart';
+
 import 'package:pet_store/screens/home_screen.dart';
 import 'package:pet_store/screens/main_screen.dart';
+import 'package:pet_store/screens/splash_screen.dart';
+
+import 'bloc/pet_list/pets_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +22,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData(primaryColor: Colors.blue[700]),
         debugShowCheckedModeBanner: false,
-        home: MainScreen(),
+        home: const SplashScreen(),
       ),
     );
   }

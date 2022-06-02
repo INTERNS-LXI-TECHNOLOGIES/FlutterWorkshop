@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pet_store/pet_list/pets_bloc.dart';
+import 'package:pet_store/bloc/pet_list/pets_bloc.dart';
+
 import 'package:pet_store/screens/pet_details_screen.dart';
 
 class MainCard extends StatelessWidget {
