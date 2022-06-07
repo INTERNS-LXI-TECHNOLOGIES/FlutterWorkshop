@@ -28,17 +28,17 @@ class PetsScreen extends StatelessWidget {
           ]),
         ),
         body: TabBarView(children: [
-          _body(context, 'available'),
-          _body(context, 'pending'),
-          _body(context, 'sold')
+          _body(context, AvailableList()),
+          _body(context, PendingList()),
+          _body(context, SoldList())
         ]),
       ),
     );
   }
 
-  _body(context, String status) {
-    BlocProvider.of<PetsBloc>(context).add(ShowList());
-    PetsBloc(status);
+  _body(context, PetsEvent events) {
+    BlocProvider.of<PetsBloc>(context).add(events);
+    PetsBloc();
     return Column(
       children: [
         BlocBuilder<PetsBloc, PetsState>(
