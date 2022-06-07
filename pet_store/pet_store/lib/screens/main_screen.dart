@@ -18,20 +18,6 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.menu),
-        ),
-        title: Text('petstore'),
-        actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart)),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(CupertinoIcons.profile_circled),
-          )
-        ],
-      ),
       body: SafeArea(
         child: ValueListenableBuilder(
             valueListenable: indexNotifier,

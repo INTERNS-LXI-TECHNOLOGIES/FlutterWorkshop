@@ -9,9 +9,11 @@ part 'pets_event.dart';
 part 'pets_state.dart';
 
 class PetsBloc extends Bloc<PetsEvent, PetsState> {
-  PetsBloc() : super(PetsInitial(petList: [])) {
+  //PetsBloc();
+  final String petStatus;
+  PetsBloc(this.petStatus) : super(PetsInitial(petList: [])) {
     on<ShowList>((event, emit) async {
-      List<String> statusList = ['available', 'pending'];
+      List<String> statusList = [petStatus];
       List<Pet> petList = [];
       await Openapi()
           .getPetApi()

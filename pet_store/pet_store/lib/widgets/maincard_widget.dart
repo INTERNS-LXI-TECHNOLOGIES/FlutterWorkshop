@@ -7,6 +7,8 @@ import 'package:pet_store/bloc/pet_list/pets_bloc.dart';
 
 import 'package:pet_store/screens/pet_details_screen.dart';
 
+import 'image_decode_widget.dart';
+
 class MainCard extends StatelessWidget {
   MainCard({Key? key}) : super(key: key);
 
@@ -17,8 +19,14 @@ class MainCard extends StatelessWidget {
     );
   }
 
+  petList(context) {
+    BlocProvider.of<PetsBloc>(context).add(ShowList());
+    PetsBloc('pending');
+  }
+
   _body(context) {
     BlocProvider.of<PetsBloc>(context).add(ShowList());
+    PetsBloc('pending');
     return Column(
       children: [
         BlocBuilder<PetsBloc, PetsState>(
@@ -38,7 +46,7 @@ class MainCard extends StatelessWidget {
                           child:
                               //Text(state.petList[i].status!.name)
 
-                              _getImagenBase64(
+                              getImagenBase64(
                                   petPhotos(state.petList[i].photoUrls)[0]),
                         ),
                         onTap: () {
@@ -66,33 +74,5 @@ class MainCard extends StatelessWidget {
     List<String> photosUrl = [];
     photosUrl.addAll(photos);
     return photosUrl;
-  }
-
-  Widget _getImagenBase64(String imagen) {
-    var _imageBase64 = imagen;
-    //const Base64Codec base64 = Base64Codec();
-    if (_imageBase64 == null) {
-      return const Center(child: CircularProgressIndicator());
-    } else if (_imageBase64.length % 4 > 0 && _imageBase64.length > 100) {
-      _imageBase64 += '=' * (4 - _imageBase64.length % 4);
-      debugPrint(_imageBase64);
-      var bytes = const Base64Decoder().convert(_imageBase64);
-      debugPrint('$bytes');
-      return Image.memory(
-        bytes,
-        //width: 20,
-        fit: BoxFit.fitWidth,
-      );
-    } else if (_imageBase64.length > 100) {
-      var bytes = const Base64Decoder().convert(_imageBase64);
-      debugPrint('$bytes');
-      return Image.memory(
-        bytes,
-        //width: 20,
-        fit: BoxFit.fitWidth,
-      );
-    } else {
-      return const Image(image: AssetImage('images/cat.jpg'));
-    }
   }
 }

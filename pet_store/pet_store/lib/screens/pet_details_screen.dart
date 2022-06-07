@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:openapi/openapi.dart';
+
+import '../widgets/image_decode_widget.dart';
 
 class PetDetails extends StatelessWidget {
   //final Pet pet = new Pet();
@@ -12,18 +16,23 @@ class PetDetails extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 2,
-              decoration: const BoxDecoration(
-                color: Colors.lightBlue,
-                borderRadius:
-                    BorderRadius.only(bottomRight: Radius.circular(20)),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 2,
+                decoration: const BoxDecoration(
+                  color: Colors.lightBlue,
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(100),
+                      bottomLeft: Radius.circular(100)),
+                ),
+                child: getImagenBase64(pet.photoUrls[0]),
+                // Center(
+                //     child: Text(
+                //   pet.name!,
+                // )),
               ),
-              child: Center(
-                  child: Text(
-                pet.name!,
-              )),
             ),
             Container(
               height: MediaQuery.of(context).size.height * .4,

@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => PetsBloc(),
+      create: (context) => PetsBloc('sold'),
       child: MaterialApp(
         theme: ThemeData(primaryColor: Colors.blue[700]),
         debugShowCheckedModeBanner: false,
