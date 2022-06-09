@@ -28,17 +28,70 @@ class PetsScreen extends StatelessWidget {
           ]),
         ),
         body: TabBarView(children: [
-          _body(context, AvailableList()),
-          _body(context, PendingList()),
-          _body(context, SoldList())
+          Container(
+            child: body(context, 'available'),
+          ),
+          Container(
+            child: body(context, 'pending'),
+          ),
+          Container(
+            child: body(context, 'sold'),
+          ),
         ]),
       ),
     );
   }
 
-  _body(context, PetsEvent events) {
-    BlocProvider.of<PetsBloc>(context).add(events);
-    PetsBloc();
+  body(context, String status) {
+    BlocProvider.of<PetsBloc>(context).add(LoadPetsByStatus(status));
+    return BlocBuilder<PetsBloc, PetsState>(
+      builder: (context, state) {
+        if (state is PetsLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (state is PetsLoaded) {
+          return Expanded(
+            child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: state.petList.length,
+                itemBuilder: (context, i) => ListTile(
+                      title: state.petList[i].name!.isNotEmpty
+                          ? Text(state.petList[i].name!)
+                          : const Text('no name'),
+                      leading: CircleAvatar(
+                        child:
+                            //Text(state.petList[i].status!.name)
+
+                            getImagenBase64(
+                                petPhotos(state.petList[i].photoUrls)[0]),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                PetDetails(pet: state.petList[i]),
+                          ),
+                        );
+                      },
+                    )
+
+                //getImagenBase64(state.petList[i].photoUrls.first),
+
+                ),
+          );
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+        //return Text("${state.petList.length}");
+      },
+    );
+  }
+
+  _body(context, String status) {
+    BlocProvider.of<PetsBloc>(context).add(LoadPetsByStatus(status));
+
+    // PetsBloc();
     return Column(
       children: [
         BlocBuilder<PetsBloc, PetsState>(
