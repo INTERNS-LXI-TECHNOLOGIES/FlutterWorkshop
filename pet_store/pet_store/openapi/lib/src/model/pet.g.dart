@@ -88,8 +88,8 @@ class _$Pet extends Pet {
       this.tags,
       this.status})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(name, r'Pet', 'name');
-    BuiltValueNullFieldError.checkNotNull(photoUrls, r'Pet', 'photoUrls');
+    // BuiltValueNullFieldError.checkNotNull(name, r'Pet', 'name');
+    //BuiltValueNullFieldError.checkNotNull(photoUrls, r'Pet', 'photoUrls');
   }
 
   @override

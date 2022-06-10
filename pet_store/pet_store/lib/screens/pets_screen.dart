@@ -6,99 +6,75 @@ import 'package:pet_store/screens/pet_details_screen.dart';
 import '../bloc/pet_list/pets_bloc.dart';
 import '../widgets/image_decode_widget.dart';
 
-class PetsScreen extends StatelessWidget {
+class PetsScreen extends StatefulWidget {
   const PetsScreen({Key? key}) : super(key: key);
 
   @override
+  State<PetsScreen> createState() => _PetsScreenState();
+}
+
+class _PetsScreenState extends State<PetsScreen>
+    with SingleTickerProviderStateMixin {
+  @override
+  late TabController controller;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller = TabController(length: 3, vsync: this);
+    controller.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controller.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          bottom: const TabBar(tabs: [
-            Tab(
-              text: 'available',
-            ),
-            Tab(
-              text: 'pending',
-            ),
-            Tab(
-              text: 'sold',
-            ),
-          ]),
-        ),
-        body: TabBarView(children: [
-          Container(
-            child: body(context, 'available'),
+    return Scaffold(
+      appBar: AppBar(
+        bottom: TabBar(controller: controller, tabs: const [
+          Tab(
+            text: 'available',
           ),
-          Container(
-            child: body(context, 'pending'),
+          Tab(
+            text: 'pending',
           ),
-          Container(
-            child: body(context, 'sold'),
+          Tab(
+            text: 'sold',
           ),
         ]),
       ),
+      //DefaultTabController.of(context)!.index
+      body: TabBarView(controller: controller, children: [
+        Container(
+          child: body(context, controller.index),
+        ),
+        Container(
+          child: body(context, controller.index),
+        ),
+        Container(
+          child: body(context, controller.index),
+        ),
+      ]),
     );
   }
 
-  body(context, String status) {
-    BlocProvider.of<PetsBloc>(context).add(LoadPetsByStatus(status));
+  body(context, int index) {
+    List<String> statusList = ['available', 'pending', 'sold'];
+    BlocProvider.of<PetsBloc>(context).add(LoadPetsByStatus(statusList[index]));
     return BlocBuilder<PetsBloc, PetsState>(
       builder: (context, state) {
         if (state is PetsLoading) {
           return const Center(child: CircularProgressIndicator());
         }
+
         if (state is PetsLoaded) {
-          return Expanded(
-            child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: state.petList.length,
-                itemBuilder: (context, i) => ListTile(
-                      title: state.petList[i].name!.isNotEmpty
-                          ? Text(state.petList[i].name!)
-                          : const Text('no name'),
-                      leading: CircleAvatar(
-                        child:
-                            //Text(state.petList[i].status!.name)
-
-                            getImagenBase64(
-                                petPhotos(state.petList[i].photoUrls)[0]),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                PetDetails(pet: state.petList[i]),
-                          ),
-                        );
-                      },
-                    )
-
-                //getImagenBase64(state.petList[i].photoUrls.first),
-
-                ),
-          );
-        } else {
-          return const Center(child: CircularProgressIndicator());
-        }
-        //return Text("${state.petList.length}");
-      },
-    );
-  }
-
-  _body(context, String status) {
-    BlocProvider.of<PetsBloc>(context).add(LoadPetsByStatus(status));
-
-    // PetsBloc();
-    return Column(
-      children: [
-        BlocBuilder<PetsBloc, PetsState>(
-          builder: (context, state) {
-            // debugPrint('bloc return list=>${petList}');
-            debugPrint('bloc return list length=>${state.petList.length}');
-
+          if (state.petList.isNotEmpty) {
             return Expanded(
               child: ListView.builder(
                   shrinkWrap: true,
@@ -129,9 +105,16 @@ class PetsScreen extends StatelessWidget {
 
                   ),
             );
-          },
-        )
-      ],
+          } else {
+            const Center(
+              child: Text('No data'),
+            );
+          }
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+        return const Text("something went wrong");
+      },
     );
   }
 
