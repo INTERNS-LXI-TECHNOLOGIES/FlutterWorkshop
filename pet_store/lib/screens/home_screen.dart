@@ -1,13 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:dio/src/response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pet_store/screens/add_screen.dart';
-import 'package:pet_store/screens/mypet_screen.dart';
-import 'package:pet_store/screens/pets_screen.dart';
-import 'package:pet_store/widgets/bottombar_widget.dart';
-import 'package:pet_store/widgets/maincard_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);

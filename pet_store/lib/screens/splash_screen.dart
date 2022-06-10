@@ -1,7 +1,4 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
-import 'package:pet_store/screens/home_screen.dart';
 import 'package:pet_store/screens/main_screen.dart';
 
 class SplashScreen extends StatefulWidget {

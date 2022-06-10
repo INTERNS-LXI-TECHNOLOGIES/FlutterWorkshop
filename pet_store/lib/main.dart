@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:pet_store/screens/home_screen.dart';
-import 'package:pet_store/screens/main_screen.dart';
 import 'package:pet_store/screens/splash_screen.dart';
 
 import 'bloc/pet_list/pets_bloc.dart';
