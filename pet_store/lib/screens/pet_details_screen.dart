@@ -6,13 +6,15 @@ import 'package:openapi/openapi.dart';
 import '../widgets/image_decode_widget.dart';
 
 class PetDetails extends StatelessWidget {
-  //final Pet pet = new Pet();
   final Pet pet;
   const PetDetails({Key? key, required this.pet}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Details'),
+      ),
       body: SafeArea(
         child: Column(
           children: [

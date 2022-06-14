@@ -10,9 +10,9 @@ class PetsInitial extends PetsState {
   PetsInitial({required petList}) : super(petList: []);
 }
 
-class PetsLoading extends PetsState {
-  PetsLoading({required List<Pet> petList}) : super(petList: []);
-}
+// class PetsLoading extends PetsState {
+//   PetsLoading({required petList}) : super(petList: []);
+// }
 
 class PetsLoaded extends PetsState {
   PetsLoaded({required List<Pet> petList}) : super(petList: petList);

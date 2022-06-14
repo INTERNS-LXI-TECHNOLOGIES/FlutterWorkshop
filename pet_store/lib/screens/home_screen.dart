@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,7 +10,12 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: [Text('petsss'), searchBox(context)],
+        children: [
+          SizedBox(
+            height: 50,
+          ),
+          searchBox(context)
+        ],
       ),
     );
   }
@@ -22,7 +26,7 @@ class HomeScreen extends StatelessWidget {
       height: 50,
       width: MediaQuery.of(context).size.width,
       child: Card(
-        color: Color.fromARGB(255, 36, 162, 240),
+        color: Color.fromARGB(255, 19, 229, 208),
         child: TextField(
           decoration: const InputDecoration(
               border: UnderlineInputBorder(),
