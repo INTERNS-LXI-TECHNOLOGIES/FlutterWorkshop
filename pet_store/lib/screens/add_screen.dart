@@ -46,8 +46,7 @@ class AddScreen extends StatelessWidget {
           ),
           TextButton(
               onPressed: () {
-                addPetByTextForm(
-                    nameController as String, cateController as String);
+                addPetByTextForm(nameController.text, cateController.text);
               },
               child: const Text('add'))
         ],
