@@ -16,6 +16,8 @@ petListByStatus(context, int index) {
       //   return const Center(child: CircularProgressIndicator());
       // }
       if (state is PetsLoaded && state.petList.isNotEmpty) {
+        Future.delayed(const Duration(seconds: 2),
+            () => const Center(child: CircularProgressIndicator()));
         return ListView.builder(
           shrinkWrap: true,
           itemCount: state.petList.length,
