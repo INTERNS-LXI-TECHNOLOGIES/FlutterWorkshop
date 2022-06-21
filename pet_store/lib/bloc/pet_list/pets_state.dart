@@ -1,6 +1,6 @@
 part of 'pets_bloc.dart';
 
-class PetsState {
+abstract class PetsState {
   List<Pet> petList = [];
 
   PetsState({required this.petList});

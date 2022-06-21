@@ -14,5 +14,5 @@ addPetByTextForm(String petName, String cateName) async {
   await Openapi().getPetApi().addPet(
         body: newPet,
       );
-  debugPrint('pet add');
+  debugPrint('pet added');
 }
