@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart';
@@ -10,6 +11,8 @@ class AddScreen extends StatelessWidget {
   TextEditingController nameController = TextEditingController();
   TextEditingController cateController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
+  bool isPetName = false;
+  bool isCateName = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,71 +23,96 @@ class AddScreen extends StatelessWidget {
         key: _formKey,
         child: Column(
           children: [
-            const SizedBox(
-              height: 30,
-            ),
+            const SizedBox(height: 20),
             Container(
               padding: const EdgeInsets.all(10),
-              child: BlocBuilder<PetAddBloc, PetAddState>(
-                builder: (context, state) {
-                  if (state is PetAddInitial) {
-                    return TextFormField(
-                      keyboardType: TextInputType.name,
-                      controller: nameController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Pet Name',
-                      ),
-                    );
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
+              child: TextFormField(
+                onChanged: (value) {
+                  isPetName = true;
                 },
+                keyboardType: TextInputType.name,
+                controller: nameController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Pet Name',
+                ),
               ),
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            const SizedBox(height: 20),
             Container(
               padding: const EdgeInsets.all(10),
-              child: BlocBuilder<PetAddBloc, PetAddState>(
-                builder: (context, state) {
-                  if (state is PetAddInitial) {
-                    return TextFormField(
-                      keyboardType: TextInputType.name,
-                      controller: cateController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Pet category',
-                      ),
-                    );
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
+              child: TextFormField(
+                onChanged: (value) {
+                  isCateName = true;
                 },
+                keyboardType: TextInputType.name,
+                controller: cateController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Pet category',
+                ),
               ),
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            // BlocBuilder<PetAddBloc, PetAddState>(
+            //   builder: (context, state) {
+            //     if (State is PetAddInitial) {
+            //       const snackBar = SnackBar(
+            //         backgroundColor: Colors.blue,
+            //         content: Text('pet added successfully'),
+            //       );
+            //       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            //       nameController.clear();
+            //       cateController.clear();
+            //     } else if (State is PetAddErrorState) {
+            //       if (State is PetAddErrorState) {
+            //         const snackBar = SnackBar(
+            //           backgroundColor: Colors.red,
+            //           content: Text('something went wrong'),
+            //         );
+            //         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            //         nameController.clear();
+            //         cateController.clear();
+            //       }
+            //     }
+            //     return const SizedBox(height: 20);
+            //   },
+            // ),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(
+                CupertinoButton(
+                  onPressed: () {
+                    if (isCateName == true && isPetName == true) {
+                      BlocProvider.of<PetAddBloc>(context).add(
+                        AddPetByTextForm(
+                            nameController.text, cateController.text),
+                      );
+
+                      const snackBar = SnackBar(
+                        backgroundColor: Colors.blue,
+                        content: Text('pet added successfully'),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      nameController.clear();
+                      cateController.clear();
+                      // if (State is PetAddErrorState) {
+                      //   const snackBar = SnackBar(
+                      //     backgroundColor: Colors.red,
+                      //     content: Text('something went wrong'),
+                      //   );
+                      //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      //   nameController.clear();
+                      //   cateController.clear();
+                      // }
+                    }
+                  },
+                  child: const Text('add+'),
+                ),
+                CupertinoButton(
                     onPressed: () {
-                      BlocProvider.of<PetAddBloc>(context).add(AddPetByTextForm(
-                          nameController.text, cateController.text));
-                      // addPetByTextForm(
-                      //    nameController.text, cateController.text);
-                    },
-                    child: const Text('add+')),
-                ElevatedButton(
-                    onPressed: () {
-                      //addPetByTextForm(nameController.text, cateController.text);
+                      nameController.clear();
+                      cateController.clear();
                     },
                     child: const Text('cancel')),
               ],

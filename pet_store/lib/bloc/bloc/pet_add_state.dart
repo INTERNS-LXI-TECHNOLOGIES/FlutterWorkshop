@@ -6,3 +6,5 @@ abstract class PetAddState {}
 class PetAddInitial extends PetAddState {}
 
 class PetAddedState extends PetAddState {}
+
+class PetAddErrorState extends PetAddState {}
