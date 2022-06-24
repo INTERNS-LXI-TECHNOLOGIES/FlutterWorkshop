@@ -10,23 +10,27 @@ class PetAddBloc extends Bloc<PetAddEvent, PetAddState> {
   PetAddBloc() : super(PetAddInitial()) {
     on<AddPetByTextForm>((event, emit) async {
       try {
-        PetBuilder petBuilder = PetBuilder();
-        CategoryBuilder cateBuilder = CategoryBuilder();
-        cateBuilder.name = event.petName;
-        petBuilder.name = event.cateName;
-        petBuilder.status = PetStatusEnum.available;
-        petBuilder.category = cateBuilder;
-        Pet newPet = petBuilder.build();
-        final response = await Openapi().getPetApi().addPet(
-              body: newPet,
-            );
+        if (event.cateName.isNotEmpty && event.petName.isNotEmpty) {
+          PetBuilder petBuilder = PetBuilder();
+          CategoryBuilder cateBuilder = CategoryBuilder();
+          cateBuilder.name = event.petName;
+          petBuilder.name = event.cateName;
+          petBuilder.status = PetStatusEnum.available;
+          petBuilder.category = cateBuilder;
+          Pet newPet = petBuilder.build();
+          final response = await Openapi().getPetApi().addPet(
+                body: newPet,
+              );
 
-        debugPrint("Response=> ${response.toString()}");
+          debugPrint("Response=> ${response.toString()}");
+        } else {
+          emit(PetAddNoValueState('enter name and category'));
+        }
 
         emit(PetAddInitial());
-      } catch (e) {
-        debugPrint(e.toString());
-        emit(PetAddErrorState());
+      } on Exception {
+        debugPrint(Exception().toString());
+        emit(PetAddErrorState('something went wrong'));
       }
     });
   }

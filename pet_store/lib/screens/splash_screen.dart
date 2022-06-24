@@ -21,7 +21,9 @@ class _SplashScreenState extends State<SplashScreen> {
     return const Scaffold(
       body: Center(
           child: Image(
-        image: AssetImage('images/logo1.jpg'),
+        image: AssetImage(
+          'assets/images/logo1.jpg',
+        ),
         fit: BoxFit.fill,
       )),
     );

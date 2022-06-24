@@ -27,7 +27,7 @@ Widget getImagenBase64(String imagen) {
     );
   } else {
     return const Image(
-      image: AssetImage('images/cat.jpg'),
+      image: AssetImage('assets/images/cat.jpg'),
       fit: BoxFit.fill,
     );
   }
