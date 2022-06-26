@@ -26,9 +26,11 @@ Widget getImagenBase64(String imagen) {
       fit: BoxFit.fill,
     );
   } else {
-    return const Image(
-      image: AssetImage('assets/images/cat.jpg'),
-      fit: BoxFit.fill,
+    return const CircleAvatar(
+      child: Image(
+        image: AssetImage('assets/images/cat.jpg'),
+        fit: BoxFit.fill,
+      ),
     );
   }
 }

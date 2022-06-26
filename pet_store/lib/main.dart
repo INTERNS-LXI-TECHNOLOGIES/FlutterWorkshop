@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => PetsBloc()),
-        BlocProvider(create: (context) => PetAddBloc())
+        BlocProvider(create: (context) => PetAddBloc()),
       ],
       child: MaterialApp(
         theme: ThemeData(primaryColor: Colors.blue[700]),

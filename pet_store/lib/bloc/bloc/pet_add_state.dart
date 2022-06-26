@@ -1,19 +1,25 @@
 part of 'pet_add_bloc.dart';
 
 @immutable
-abstract class PetAddState {}
+abstract class PetAddState {
+  final String msg;
+  const PetAddState({required this.msg});
+}
 
-class PetAddInitial extends PetAddState {}
+class PetAddInitial extends PetAddState {
+  const PetAddInitial({required String msg}) : super(msg: msg);
+}
 
-class PetAddedState extends PetAddState {}
+class PetAddedState extends PetAddState {
+  const PetAddedState({required String msg}) : super(msg: msg);
+}
 
+// ignore: must_be_immutable
 class PetAddNoValueState extends PetAddState {
-  String noValueMsg;
-  PetAddNoValueState(this.noValueMsg);
+  const PetAddNoValueState({required String msg}) : super(msg: msg);
 }
 
 // ignore: must_be_immutable
 class PetAddErrorState extends PetAddState {
-  String errorMsg;
-  PetAddErrorState(this.errorMsg);
+  const PetAddErrorState({required String msg}) : super(msg: msg);
 }
