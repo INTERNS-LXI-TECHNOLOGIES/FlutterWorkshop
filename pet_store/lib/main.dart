@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pet_store/bloc/bloc/pet_add_bloc.dart';
 
 import 'package:pet_store/screens/splash_screen.dart';
 
+import 'bloc/pet_add/pet_add_bloc.dart';
 import 'bloc/pet_list/pets_bloc.dart';
 
 void main() {

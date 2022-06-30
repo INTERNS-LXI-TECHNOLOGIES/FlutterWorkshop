@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pet_store/bloc/bloc/pet_add_bloc.dart';
+
+import '../bloc/pet_add/pet_add_bloc.dart';
 
 class AddScreen extends StatelessWidget {
   AddScreen({Key? key}) : super(key: key);
   TextEditingController nameController = TextEditingController();
   TextEditingController cateController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey();
+
   bool isPetName = false;
   bool isCateName = false;
   @override

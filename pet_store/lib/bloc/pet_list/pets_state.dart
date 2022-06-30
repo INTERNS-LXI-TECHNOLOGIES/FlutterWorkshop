@@ -17,3 +17,7 @@ class PetsInitial extends PetsState {
 class PetsLoaded extends PetsState {
   PetsLoaded({required List<Pet> petList}) : super(petList: petList);
 }
+
+class SearchLoaded extends PetsState {
+  SearchLoaded({required List<Pet> petList}) : super(petList: petList);
+}

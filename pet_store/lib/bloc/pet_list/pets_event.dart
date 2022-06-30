@@ -7,3 +7,10 @@ class LoadPetsByStatus extends PetsEvent {
 
   LoadPetsByStatus(this.status);
 }
+
+class SearchPet extends PetsEvent {
+  final String status;
+  final String onValue;
+
+  SearchPet(this.status, this.onValue);
+}

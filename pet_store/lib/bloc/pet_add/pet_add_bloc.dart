@@ -7,7 +7,7 @@ part 'pet_add_event.dart';
 part 'pet_add_state.dart';
 
 class PetAddBloc extends Bloc<PetAddEvent, PetAddState> {
-  PetAddBloc() : super(const PetAddInitial(msg: 'add your pet [initial]')) {
+  PetAddBloc() : super(const PetAddInitial(msg: 'add your pet ')) {
     on<AddPetByTextForm>(
       (event, emit) async {
         try {
