@@ -24,22 +24,53 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('petstore'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                showSearch(context: context, delegate: CustumSearchhDelegate());
+              },
+              icon: Icon(Icons.search))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [
-            // SizedBox(
-            //   height: 50,
-            // ),
-            searchBox(context),
-            searchList(),
-          ],
+          children: const [],
         ),
       ),
     );
   }
 
-  BlocBuilder<PetsBloc, PetsState> searchList() {
+  //sizedbox for textfield
+
+}
+
+class CustumSearchhDelegate extends SearchDelegate {
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+          onPressed: () {
+            query = '';
+          },
+          icon: Icon(Icons.clear))
+    ];
+    //return null;
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+        onPressed: () {
+          close(context, null);
+        },
+        icon: Icon(Icons.arrow_back));
+
+    //return null;
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    BlocProvider.of<PetsBloc>(context).add(SearchPet('available', query));
     return BlocBuilder<PetsBloc, PetsState>(builder: (context, state) {
       if (state.petList.isNotEmpty) {
         return ListView.builder(
@@ -63,31 +94,29 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  //sizedbox for textfield
-  Container searchBox(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(color: Colors.blue),
-      child: Card(
-        color: Color.fromARGB(255, 248, 249, 249),
-        child: TextField(
-          controller: searchController,
-          decoration: const InputDecoration(
-              border: UnderlineInputBorder(
-                borderSide: BorderSide(width: 500),
-              ),
-              // labelText: 'search',
-              hintText: 'search',
-              hintStyle: TextStyle(),
-              fillColor: Colors.blueAccent
-              //suffixIcon: Icons(iconsse),
-              ),
-          onChanged: (value) {
-            BlocProvider.of<PetsBloc>(context)
-                .add(SearchPet('available', searchController.text));
-          },
-        ),
-      ),
-    );
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    BlocProvider.of<PetsBloc>(context).add(SearchPet('available', query));
+    return BlocBuilder<PetsBloc, PetsState>(builder: (context, state) {
+      if (state.petList.isNotEmpty) {
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: state.petList.length,
+          itemBuilder: (context, i) => ListTile(
+            title: Text(state.petList[i].name!),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PetDetails(pet: state.petList[i]),
+                ),
+              );
+            },
+          ),
+        );
+      } else {
+        return const SizedBox.shrink();
+      }
+    });
   }
 }
