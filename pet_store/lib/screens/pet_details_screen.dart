@@ -30,14 +30,10 @@ class PetDetails extends StatelessWidget {
                       bottomLeft: Radius.circular(100)),
                 ),
                 child: getImagenBase64(pet.photoUrls[0]),
-                // Center(
-                //     child: Text(
-                //   pet.name!,
-                // )),
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height * .4,
+              // height: MediaQuery.of(context).size.height * .4,
               width: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 253, 253, 253)),
@@ -45,27 +41,19 @@ class PetDetails extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                      width: 200,
-                      height: 100,
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            detailText(pet.name!, 30),
-                            detailText(pet.status!.name, 15),
-                          ])),
-                  SizedBox(
-                    width: 250,
-                    height: 100,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        detailText('more details', 25),
-                        detailText('Type : ${pet.category!.name}', 20),
-                        detailText('id   : ${pet.id}', 20),
-                        //detailText(pet.tags![0] as String, 20)
-                      ],
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      detailText(pet.name!, 40),
+                      detailText(pet.status!.name, 15),
+
+                      // crossAxisAlignment: CrossAxisAlignment.start,
+
+                      detailText('more details', 30),
+                      detailText('Type : ${pet.category!.name}', 20),
+                      detailText('id   : ${pet.id}', 20),
+                      //detailText(pet.tags![0] as String, 20)
+                    ],
                   )
                 ],
               ),

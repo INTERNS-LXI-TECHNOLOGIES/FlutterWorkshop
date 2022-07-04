@@ -2,12 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:openapi/openapi.dart';
-import 'package:pet_store/screens/add_screen.dart';
 import 'package:pet_store/screens/pet_details_screen.dart';
 
 import '../bloc/pet_list/pets_bloc.dart';
-import '../widgets/image_decode_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
