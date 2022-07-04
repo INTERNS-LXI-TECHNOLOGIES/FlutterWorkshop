@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/pet_add/pet_add_bloc.dart';
+import '../widgets/caps_text.dart';
 
 class AddScreen extends StatelessWidget {
   AddScreen({Key? key}) : super(key: key);
@@ -14,8 +15,11 @@ class AddScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 131, 203, 203),
       appBar: AppBar(
-        title: const Text("add your pet"),
+        title: Text(
+          CapsText(text: 'add your pet'),
+        ),
       ),
       body: Column(
         children: [
@@ -53,7 +57,7 @@ class AddScreen extends StatelessWidget {
               controller: cateController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Pet category',
+                labelText: 'Pet Category',
               ),
             ),
           ),
@@ -68,16 +72,13 @@ class AddScreen extends StatelessWidget {
                     AddPetByTextForm(nameController.text, cateController.text),
                   );
 
-                  // const snackBar = SnackBar(
-                  //   backgroundColor: Colors.blue,
-                  //   content: Text('pet added successfully'),
-                  // );
-                  // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   await Future.delayed(const Duration(seconds: 5));
                   nameController.clear();
                   cateController.clear();
                 },
-                child: const Text('add+'),
+                child: Text(
+                  CapsText(text: 'add+'),
+                ),
               ),
               CupertinoButton(
                   color: Colors.blue,
@@ -85,7 +86,9 @@ class AddScreen extends StatelessWidget {
                     nameController.clear();
                     cateController.clear();
                   },
-                  child: const Text('cancel')),
+                  child: Text(
+                    CapsText(text: 'cancel'),
+                  )),
             ],
           ),
           const SizedBox(height: 15),
@@ -112,9 +115,11 @@ class AddScreen extends StatelessWidget {
                   child: Text(state.msg),
                 );
               } else {
-                return const SizedBox(
+                return SizedBox(
                   height: 20,
-                  child: Text('bad state'),
+                  child: Text(
+                    CapsText(text: 'bad state'),
+                  ),
                 );
               }
             },

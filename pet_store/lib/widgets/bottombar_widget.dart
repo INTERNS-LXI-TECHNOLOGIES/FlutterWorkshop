@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'caps_text.dart';
+
 ValueNotifier<int> indexNotifier = ValueNotifier(0);
 
 class BottombarWidgets extends StatelessWidget {
@@ -19,15 +21,23 @@ class BottombarWidgets extends StatelessWidget {
               onTap: (index) {
                 indexNotifier.value = index;
               },
-              items: const [
+              items: [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'home',
+                  icon: const Icon(Icons.home),
+                  label: CapsText(text: 'home'),
                 ),
-                BottomNavigationBarItem(icon: Icon(Icons.add), label: 'add'),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.monitor_heart_outlined), label: 'my pet'),
-                BottomNavigationBarItem(icon: Icon(Icons.list), label: 'pets')
+                  icon: const Icon(Icons.add),
+                  label: CapsText(text: 'add'),
+                ),
+                BottomNavigationBarItem(
+                  icon: const Icon(Icons.monitor_heart_outlined),
+                  label: CapsText(text: 'my pet'),
+                ),
+                BottomNavigationBarItem(
+                  icon: const Icon(Icons.list),
+                  label: CapsText(text: 'pets'),
+                )
               ]);
         });
   }

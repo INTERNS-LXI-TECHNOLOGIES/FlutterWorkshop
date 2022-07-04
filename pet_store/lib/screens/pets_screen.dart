@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pet_store/bloc/pet_list/pets_bloc.dart';
+import 'package:pet_store/widgets/caps_text.dart';
 import 'package:pet_store/widgets/image_decode_widget.dart';
 
 import 'pet_details_screen.dart';
@@ -39,7 +40,9 @@ class _PetsScreenState extends State<PetsScreen>
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 131, 203, 203),
       appBar: AppBar(
-        title: const Text('pets'),
+        title: Text(
+          CapsText(text: 'pets'),
+        ),
         bottom: ButtonsTabBar(
             controller: controller,
             buttonMargin: const EdgeInsets.all(8),
@@ -53,19 +56,19 @@ class _PetsScreenState extends State<PetsScreen>
               Tab(
                 //text: 'available',
                 child: Text(
-                  'available',
+                  CapsText(text: 'available'),
                   style: GoogleFonts.aBeeZee(),
                 ),
               ),
               Tab(
                 child: Text(
-                  'pending',
+                  CapsText(text: 'pending'),
                   style: GoogleFonts.aBeeZee(),
                 ),
               ),
               Tab(
                 child: Text(
-                  'sold',
+                  CapsText(text: 'sold'),
                   style: GoogleFonts.aBeeZee(),
                 ),
               ),
