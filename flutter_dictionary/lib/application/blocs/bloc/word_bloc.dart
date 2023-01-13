@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_dictionary/data/repocitory/word_repo.dart';
+import 'package:flutter_dictionary/data/repository/word_repo.dart';
 import 'package:meta/meta.dart';
 
 import '../../../data/model/word.dart';
