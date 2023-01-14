@@ -73,15 +73,15 @@ class HomeScreen extends StatelessWidget {
                               decoration: InputDecoration(
                                   suffixIcon: IconButton(
                                     splashColor: kgrey,
-                                    icon: Icon(Icons.volume_up),
+                                    icon: const Icon(Icons.mic),
                                     onPressed: () {
                                       debugPrint("mic on");
                                       speak(wordController.text);
                                     },
                                   ),
                                   hintText: 'Search here',
-                                  hintStyle: TextStyle(fontSize: 18),
-                                  prefixIcon: Icon(Icons.search)),
+                                  hintStyle: const TextStyle(fontSize: 18),
+                                  prefixIcon: const Icon(Icons.search)),
                               controller: wordController,
                               onSubmitted: (value) {
                                 debugPrint(value.toString());
@@ -109,25 +109,46 @@ class HomeScreen extends StatelessWidget {
                       width: kwidth,
                       child: BlocBuilder<WordBloc, WordState>(
                         builder: (context, state) {
-                          // var count=state.word.meanings[0].definitions.length;
-                          //  debugPrint( )
                           if (state is WordLoadedState) {
                             return ListView.builder(
-                                itemCount:
-                                    state.word.meanings[0].synonyms.length,
-                                // state.word.meanings[0].definitions.length,
-
-                                itemBuilder: ((context, index) => Flexible(
-                                      child: ListTile(
-                                        title: Text(state
-                                            .word.meanings[0].synonyms[index]),
+                              itemCount:
+                                  state.word.meanings[0].definitions.length,
+                              itemBuilder: ((context, index) => Column(
+                                    children: [
+                                      ListTile(
+                                        minLeadingWidth: 10,
+                                        minVerticalPadding: 20,
+                                        title: Text(
+                                            'Definition: ${state.word.meanings[0].definitions[index].definition}.',
+                                            style: TextStyle(
+                                                color: kBlack,
+                                                fontSize: 22,
+                                                fontWeight: FontWeight.w500)),
+                                        subtitle: Text(
+                                            'eg: ${state.word.meanings[0].definitions[index].example}.',
+                                            style: TextStyle(
+                                                color: kBlack,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w300)),
+                                        trailing: IconButton(
+                                            onPressed: () {
+                                              speak(state.word.meanings[0]
+                                                  .definitions[index].definition
+                                                  .toString());
+                                            },
+                                            icon: Icon(Icons.volume_up)),
                                       ),
-                                    )));
+                                    ],
+                                  )),
+                            );
                           } else if (state is WordLoadingState) {
-                            return const Text('loding state');
+                            return const Center(
+                                child: CircularProgressIndicator(
+                              semanticsLabel: 'Loading',
+                            ));
                           } else if (state is WordLoadErrorState) {
-                            print(state.error);
-                            return Text(state.error);
+                            print('error state');
+                            return const Center(child: Text('No data'));
                           }
                           return const Center(child: Text('search a word'));
                         },
@@ -139,45 +160,6 @@ class HomeScreen extends StatelessWidget {
             ),
           );
         },
-      ),
-    );
-  }
-
-  SizedBox dictionaryTexts(String head, String word, int index) {
-    return SizedBox(
-      height: 20.h,
-      width: double.infinity,
-      child: Column(
-        children: [
-          Center(
-            child: Text(
-              head,
-              maxLines: 2,
-              overflow: TextOverflow.clip,
-              style: TextStyle(
-                  color: kBlack, fontSize: 24, fontWeight: FontWeight.w400),
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          //box for definiton
-          Container(
-            height: 10.h,
-            width: double.infinity,
-            decoration: BoxDecoration(color: kwhite),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                word,
-                maxLines: 2,
-                overflow: TextOverflow.clip,
-                style: TextStyle(
-                    color: kBlack, fontSize: 24, fontWeight: FontWeight.w400),
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }
