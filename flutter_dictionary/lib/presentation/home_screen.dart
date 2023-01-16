@@ -8,14 +8,24 @@ import 'package:flutter_dictionary/constants.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:speech_to_text/speech_to_text.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final String title;
   HomeScreen({super.key, required this.title});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final FlutterTts flutterTts = FlutterTts();
 
   TextEditingController wordController = TextEditingController();
+  stt.SpeechToText _speech = SpeechToText();
+  bool _isListening = false;
+  String _textSpeech = 'speak';
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +57,7 @@ class HomeScreen extends StatelessWidget {
                         //title text
                         Center(
                           child: Text(
-                            title,
+                            widget.title,
                             style: TextStyle(
                               color: kwhite,
                               fontSize: 23,
@@ -71,12 +81,14 @@ class HomeScreen extends StatelessWidget {
                             child: TextField(
                               style: const TextStyle(fontSize: 20),
                               decoration: InputDecoration(
+                                  border: InputBorder.none,
                                   suffixIcon: IconButton(
                                     splashColor: kgrey,
                                     icon: const Icon(Icons.mic),
                                     onPressed: () {
                                       debugPrint("mic on");
-                                      speak(wordController.text);
+                                      // speak(wordController.text);
+                                      onListen();
                                     },
                                   ),
                                   hintText: 'Search here',
@@ -136,7 +148,7 @@ class HomeScreen extends StatelessWidget {
                                                   .definitions[index].definition
                                                   .toString());
                                             },
-                                            icon: Icon(Icons.volume_up)),
+                                            icon: const Icon(Icons.volume_up)),
                                       ),
                                     ],
                                   )),
@@ -168,5 +180,30 @@ class HomeScreen extends StatelessWidget {
     await flutterTts.setLanguage('en-US');
     await flutterTts.setPitch(1);
     await flutterTts.speak(word);
+  }
+
+  void onListen() async {
+    bool available = await _speech.initialize(
+        onStatus: (val) => debugPrint('onStatus: $val'),
+        onError: (val) => debugPrint('onError: $val'));
+
+    if (!_isListening) {
+      if (available) {
+        setState(() {
+          _isListening = false;
+          _speech.listen(
+            onResult: (val) => setState(() {
+              _textSpeech = val.recognizedWords;
+              wordController.text = val.recognizedWords;
+            }),
+          );
+        });
+      }
+    } else {
+      setState(() {
+        _isListening = false;
+        _speech.stop();
+      });
+    }
   }
 }
