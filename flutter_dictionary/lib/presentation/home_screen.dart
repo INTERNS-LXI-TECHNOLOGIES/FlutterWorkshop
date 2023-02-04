@@ -47,9 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Container(
                       decoration: BoxDecoration(
                           color: Kred,
-                          borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(30),
-                              bottomRight: Radius.circular(30))),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(30))),
                       child: Column(children: [
                         SizedBox(
                           height: 1.w,
@@ -159,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               semanticsLabel: 'Loading',
                             ));
                           } else if (state is WordLoadErrorState) {
-                            print('error state');
+                            debugPrint('error state');
                             return const Center(child: Text('No data'));
                           }
                           return const Center(child: Text('search a word'));
