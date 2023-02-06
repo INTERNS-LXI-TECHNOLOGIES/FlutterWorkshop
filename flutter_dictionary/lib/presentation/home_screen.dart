@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dictionary/application/blocs/bloc/word_bloc.dart';
 import 'package:flutter_dictionary/constants.dart';
+import 'package:flutter_dictionary/presentation/message_screen.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -35,6 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
     debugPrint(
         'screen width => ${kwidth.toString()}  screen height => ${kheight.toString()}');
     return Scaffold(
+      // floatingActionButton: FloatingActionButton(onPressed: () {
+      //   Get.to(() => MessageScreen());
+      // }),
       body: BlocBuilder<WordBloc, WordState>(
         builder: (context, state) {
           return SafeArea(
