@@ -1,11 +1,7 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dictionary/application/blocs/bloc/word_bloc.dart';
 import 'package:flutter_dictionary/constants.dart';
-import 'package:flutter_dictionary/presentation/message_screen.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -125,6 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: BlocBuilder<WordBloc, WordState>(
                         builder: (context, state) {
                           if (state is WordLoadedState) {
+                            wordController.clear();
                             return ListView.builder(
                               itemCount:
                                   state.word.meanings[0].definitions.length,
@@ -134,17 +131,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                         minLeadingWidth: 10,
                                         minVerticalPadding: 20,
                                         title: Text(
-                                            'Definition: ${state.word.meanings[0].definitions[index].definition}.',
+                                            'Definition of ${state.word.word} : ${state.word.meanings[0].definitions[index].definition}.',
                                             style: TextStyle(
                                                 color: kBlack,
                                                 fontSize: 22,
                                                 fontWeight: FontWeight.w500)),
-                                        subtitle: Text(
-                                            'eg: ${state.word.meanings[0].definitions[index].example}.',
-                                            style: TextStyle(
-                                                color: kBlack,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w300)),
+                                        subtitle: {
+                                          state.word.meanings[0]
+                                              .definitions[index].example
+                                        }.isNotEmpty
+                                            ? Text(
+                                                'eg: ${state.word.meanings[0].definitions[index].example}.',
+                                                style: TextStyle(
+                                                    color: kBlack,
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w300))
+                                            : Text('no data'),
                                         trailing: IconButton(
                                             onPressed: () {
                                               speak(state.word.meanings[0]
